@@ -1,0 +1,120 @@
+{
+ "id": "0fae3ad4cf804c85ae246b2cac262dd7",
+ "name": "testforge-ai-repair.zip",
+ "created": "2026-11-08T07:12:00.184150+00:00",
+ "status": "needs_attention",
+ "message": "No valid patch could be produced. Error code: 401 - Invalid API key",
+ "busy": false,
+ "stack": [
+  "Python"
+ ],
+ "stall": 0,
+ "budget": 5,
+ "settings": {
+  "max_iterations": 7,
+  "auto_low": false,
+  "start": "",
+  "port": 0,
+  "sandbox": "docker"
+ },
+ "suites": [
+  {
+   "label": "before",
+   "at": "2026-11-08T07:12:00.374293+00:00",
+   "checks": [
+    {
+     "id": "T-install",
+     "name": "Install dependencies",
+     "status": "failed",
+     "detail": "Docker is not available. Install Docker (recommended) or set REPAIR_SANDBOX=process + REPAIR_ALLOW_UNSAFE_PROCESS=true (NOT isolated; development only).",
+     "seconds": 0,
+     "screenshot": "",
+     "cmd": "pip install -q --no-cache-dir --target .tf_deps pytest"
+    },
+    {
+     "id": "T-pysyntax",
+     "name": "Python syntax/compile check",
+     "status": "failed",
+     "detail": "Docker is not available. Install Docker (recommended) or set REPAIR_SANDBOX=process + REPAIR_ALLOW_UNSAFE_PROCESS=true (NOT isolated; development only).",
+     "seconds": 0,
+     "screenshot": "",
+     "cmd": "python -m compileall -q -x '(\\.tf_deps|node_modules|\\.venv)' ."
+    },
+    {
+     "id": "T-pytest",
+     "name": "Unit tests (pytest)",
+     "status": "blocked",
+     "detail": "Blocked: T-install did not pass.",
+     "seconds": 0,
+     "screenshot": "",
+     "cmd": "python -m pytest -x -q --tb=short -p no:cacheprovider"
+    }
+   ]
+  }
+ ],
+ "current": {
+  "label": "before",
+  "at": "2026-11-08T07:12:00.374293+00:00",
+  "checks": [
+   {
+    "id": "T-install",
+    "name": "Install dependencies",
+    "status": "failed",
+    "detail": "Docker is not available. Install Docker (recommended) or set REPAIR_SANDBOX=process + REPAIR_ALLOW_UNSAFE_PROCESS=true (NOT isolated; development only).",
+    "seconds": 0,
+    "screenshot": "",
+    "cmd": "pip install -q --no-cache-dir --target .tf_deps pytest"
+   },
+   {
+    "id": "T-pysyntax",
+    "name": "Python syntax/compile check",
+    "status": "failed",
+    "detail": "Docker is not available. Install Docker (recommended) or set REPAIR_SANDBOX=process + REPAIR_ALLOW_UNSAFE_PROCESS=true (NOT isolated; development only).",
+    "seconds": 0,
+    "screenshot": "",
+    "cmd": "python -m compileall -q -x '(\\.tf_deps|node_modules|\\.venv)' ."
+   },
+   {
+    "id": "T-pytest",
+    "name": "Unit tests (pytest)",
+    "status": "blocked",
+    "detail": "Blocked: T-install did not pass.",
+    "seconds": 0,
+    "screenshot": "",
+    "cmd": "python -m pytest -x -q --tb=short -p no:cacheprovider"
+   }
+  ]
+ },
+ "iterations": [
+  {
+   "n": 1,
+   "diagnosis": "Error code: 401 - Invalid API key",
+   "patches": [],
+   "outcome": "no_patches",
+   "backup": {},
+   "fixed": [],
+   "regressions": [],
+   "at": "2026-11-08T07:12:00.379053+00:00"
+  },
+  {
+   "n": 2,
+   "diagnosis": "Error code: 401 - Invalid API key",
+   "patches": [],
+   "outcome": "no_patches",
+   "backup": {},
+   "fixed": [],
+   "regressions": [],
+   "at": "2026-11-08T07:13:24.592276+00:00"
+  },
+  {
+   "n": 3,
+   "diagnosis": "Error code: 401 - Invalid API key",
+   "patches": [],
+   "outcome": "no_patches",
+   "backup": {},
+   "fixed": [],
+   "regressions": [],
+   "at": "2026-11-08T07:13:32.333848+00:00"
+  }
+ ]
+}

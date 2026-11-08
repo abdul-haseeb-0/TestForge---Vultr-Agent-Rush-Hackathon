@@ -1,0 +1,31 @@
+services:
+  api:
+    build: ../backend
+    restart: unless-stopped
+    env_file: ../backend/.env.production
+    volumes:
+      - artifacts:/app/artifacts
+      - app_data:/app/data
+    expose: ["8000"]
+    networks: [private]
+  web:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    ports: ["80:80", "443:443"]
+    environment:
+      DOMAIN: ${DOMAIN}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - ../frontend/dist:/srv:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on: [api]
+    networks: [private]
+volumes:
+  artifacts:
+  app_data:
+  caddy_data:
+  caddy_config:
+networks:
+  private:
+    driver: bridge

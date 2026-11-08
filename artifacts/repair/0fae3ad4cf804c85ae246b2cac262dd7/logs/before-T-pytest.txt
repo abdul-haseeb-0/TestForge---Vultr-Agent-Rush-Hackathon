@@ -1,0 +1,4 @@
+$ python -m pytest -x -q --tb=short -p no:cacheprovider
+exit=-1
+
+Blocked: T-install did not pass.

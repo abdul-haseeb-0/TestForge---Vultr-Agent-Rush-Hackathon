@@ -1,0 +1,112 @@
+{
+ "id": "37f70e70340a44e7ab9207d7c509bcfa",
+ "name": "frontend/index.html",
+ "created": "2026-11-08T07:14:53.749682+00:00",
+ "status": "needs_attention",
+ "message": "No valid patch could be produced. Error code: 401 - Invalid API key",
+ "busy": false,
+ "stack": [
+  "Node.js",
+  "React",
+  "Vite"
+ ],
+ "stall": 0,
+ "budget": 5,
+ "settings": {
+  "max_iterations": 6,
+  "auto_low": false,
+  "start": "",
+  "port": 0,
+  "sandbox": "docker"
+ },
+ "suites": [
+  {
+   "label": "before",
+   "at": "2026-11-08T07:14:54.002307+00:00",
+   "checks": [
+    {
+     "id": "T-install",
+     "name": "Install dependencies (scripts disabled)",
+     "status": "failed",
+     "detail": "Docker is not available. Install Docker (recommended) or set REPAIR_SANDBOX=process + REPAIR_ALLOW_UNSAFE_PROCESS=true (NOT isolated; development only).",
+     "seconds": 0,
+     "screenshot": "",
+     "cmd": "npm install --no-audit --no-fund --ignore-scripts"
+    },
+    {
+     "id": "T-build",
+     "name": "Build",
+     "status": "blocked",
+     "detail": "Blocked: T-install did not pass.",
+     "seconds": 0,
+     "screenshot": "",
+     "cmd": "npm run build"
+    },
+    {
+     "id": "T-smoke",
+     "name": "Run app + browser smoke test",
+     "status": "blocked",
+     "detail": "Blocked: T-install did not pass.",
+     "seconds": 0,
+     "screenshot": "",
+     "cmd": "npm run dev -- --host 0.0.0.0"
+    }
+   ]
+  }
+ ],
+ "current": {
+  "label": "before",
+  "at": "2026-11-08T07:14:54.002307+00:00",
+  "checks": [
+   {
+    "id": "T-install",
+    "name": "Install dependencies (scripts disabled)",
+    "status": "failed",
+    "detail": "Docker is not available. Install Docker (recommended) or set REPAIR_SANDBOX=process + REPAIR_ALLOW_UNSAFE_PROCESS=true (NOT isolated; development only).",
+    "seconds": 0,
+    "screenshot": "",
+    "cmd": "npm install --no-audit --no-fund --ignore-scripts"
+   },
+   {
+    "id": "T-build",
+    "name": "Build",
+    "status": "blocked",
+    "detail": "Blocked: T-install did not pass.",
+    "seconds": 0,
+    "screenshot": "",
+    "cmd": "npm run build"
+   },
+   {
+    "id": "T-smoke",
+    "name": "Run app + browser smoke test",
+    "status": "blocked",
+    "detail": "Blocked: T-install did not pass.",
+    "seconds": 0,
+    "screenshot": "",
+    "cmd": "npm run dev -- --host 0.0.0.0"
+   }
+  ]
+ },
+ "iterations": [
+  {
+   "n": 1,
+   "diagnosis": "Error code: 401 - Invalid API key",
+   "patches": [],
+   "outcome": "no_patches",
+   "backup": {},
+   "fixed": [],
+   "regressions": [],
+   "at": "2026-11-08T07:14:54.004667+00:00"
+  },
+  {
+   "n": 2,
+   "diagnosis": "Error code: 401 - Invalid API key",
+   "patches": [],
+   "outcome": "no_patches",
+   "backup": {},
+   "fixed": [],
+   "regressions": [],
+   "at": "2026-11-08T07:15:08.143980+00:00"
+  }
+ ]
+}

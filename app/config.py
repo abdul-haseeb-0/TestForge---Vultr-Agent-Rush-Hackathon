@@ -14,6 +14,9 @@ class Settings(BaseSettings):
     sandbox_worker_url: str = ""
     sandbox_worker_token: str = ""
     max_run_seconds: int = 90
+    repair_sandbox: str = "docker"  # docker | process (process = NOT isolated, dev only)
+    repair_allow_unsafe_process: bool = False
+    repair_max_upload_mb: int = 100
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
     @property
     def origins(self): return [x.strip() for x in self.frontend_origins.split(",") if x.strip()]

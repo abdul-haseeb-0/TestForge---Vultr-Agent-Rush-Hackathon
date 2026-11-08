@@ -1,0 +1,4 @@
+$ python -m compileall -q -x '(\.tf_deps|node_modules|\.venv)' .
+exit=-1
+
+Docker is not available. Install Docker (recommended) or set REPAIR_SANDBOX=process + REPAIR_ALLOW_UNSAFE_PROCESS=true (NOT isolated; development only).

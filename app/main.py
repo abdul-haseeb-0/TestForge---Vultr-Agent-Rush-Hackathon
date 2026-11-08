@@ -13,6 +13,7 @@ from .models import Run, Finding, Artifact
 from .security import validate_url
 from .qa import scan, deterministic_report
 from .ai import diagnose
+from .repair import router as repair_router
 
 cfg=settings(); Base.metadata.create_all(bind=engine)
 # Additive SQLite migration for existing v1.3 databases.
@@ -27,6 +28,7 @@ except Exception:
     # Startup remains explicit: database errors surface on first affected operation.
     pass
 app=FastAPI(title="TestForge AI API",version="1.4.0",description="Evidence-based website QA")
+app.include_router(repair_router)
 app.add_middleware(CORSMiddleware,allow_origins=cfg.origins,allow_credentials=True,allow_methods=["*"],allow_headers=["*"])
 class WorkflowStep(BaseModel):
     action: str = Field(pattern="^(navigate|click|fill|select|check|uncheck|assert_visible|assert_hidden|assert_text|assert_text_absent|assert_value|assert_count|assert_url|screenshot)$")
@@ -97,7 +99,7 @@ def work(run_id):
 @app.get("/api/health")
 def health(): return {"status":"ok","service":"testforge-api","version":"1.4.0"}
 @app.get("/api/config")
-def config(): return {"ai_configured":bool(cfg.vultr_inference_api_key),"runner_mode":cfg.runner_mode,"production_sandbox_configured":bool(cfg.sandbox_worker_url and cfg.sandbox_worker_token)}
+def config(): return {"ai_configured":bool(cfg.vultr_inference_api_key),"runner_mode":cfg.runner_mode,"production_sandbox_configured":bool(cfg.sandbox_worker_url and cfg.sandbox_worker_token),"repair_sandbox":cfg.repair_sandbox,"docker_available":bool(__import__("shutil").which("docker"))}
 @app.post("/api/runs",status_code=202)
 def create(payload:CreateRun,bg:BackgroundTasks,db:Session=Depends(get_db)):
     url=validate_url(str(payload.target_url)); row=Run(id=str(uuid.uuid4()),url=url,depth=payload.depth,workflow_json=json.dumps([x.model_dump() for x in payload.workflow]),status="queued",mode=cfg.runner_mode,summary="Queued for multi-page browser execution.")

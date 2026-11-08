@@ -1,0 +1,4 @@
+$ npm run build
+exit=-1
+
+Blocked: T-install did not pass.

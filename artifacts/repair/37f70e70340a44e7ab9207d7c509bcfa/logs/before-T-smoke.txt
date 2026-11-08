@@ -1,0 +1,4 @@
+$ npm run dev -- --host 0.0.0.0
+exit=-1
+
+Blocked: T-install did not pass.

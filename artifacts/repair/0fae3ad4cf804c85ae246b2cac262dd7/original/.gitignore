@@ -1,0 +1,13 @@
+.env
+.venv/
+node_modules/
+dist/
+__pycache__/
+.pytest_cache/
+*.sqlite3
+backend/artifacts/*
+!backend/artifacts/.gitkeep
+
+*.db
+*.db-shm
+*.db-wal
