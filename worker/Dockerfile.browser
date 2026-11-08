@@ -1,0 +1,9 @@
+FROM mcr.microsoft.com/playwright/python:v1.48.0-noble
+WORKDIR /opt/testforge
+USER root
+RUN pip install --no-cache-dir fastapi
+COPY guest_app /opt/testforge/app
+COPY run_scan.py /opt/testforge/run_scan.py
+ENV ARTIFACT_DIR=/tmp/testforge-artifacts
+USER pwuser
+CMD ["python", "-c", "print('TestForge v1.4 multi-page Playwright guest ready')"]

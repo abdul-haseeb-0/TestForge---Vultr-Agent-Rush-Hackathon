@@ -1,0 +1,5 @@
+[project]
+name = "testforge-worker"
+version = "1.4.0"
+requires-python = ">=3.11"
+dependencies = ["fastapi>=0.115", "uvicorn[standard]>=0.30", "pydantic>=2.9", "microsandbox>=0.7.0", "python-dotenv>=1.0"]

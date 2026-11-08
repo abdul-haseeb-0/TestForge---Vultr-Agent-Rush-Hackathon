@@ -1,0 +1,44 @@
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: testforge
+      POSTGRES_DB: testforge
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes: [pgdata:/var/lib/postgresql/data]
+    healthcheck: { test: ["CMD-SHELL", "pg_isready -U testforge"], interval: 5s, retries: 10 }
+    networks: [private]
+  api:
+    build: ../backend
+    depends_on:
+      db: { condition: service_healthy }
+    restart: unless-stopped
+    env_file: ../backend/.env.production
+    volumes:
+      - artifacts:/app/artifacts
+      - app_data:/app/data
+    expose: ["8000"]
+    networks: [private]
+  web:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    ports: ["80:80", "443:443"]
+    environment:
+      DOMAIN: ${DOMAIN}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - ../frontend/dist:/srv:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on: [api]
+    networks: [private]
+volumes:
+  pgdata:
+  artifacts:
+  app_data:
+  caddy_data:
+  caddy_config:
+networks:
+  private:
+    driver: bridge

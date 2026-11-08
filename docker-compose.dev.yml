@@ -1,0 +1,11 @@
+# Local PostgreSQL for development:  docker compose -f docker-compose.dev.yml up -d
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment: { POSTGRES_USER: testforge, POSTGRES_PASSWORD: testforge, POSTGRES_DB: testforge }
+    ports: ["127.0.0.1:5432:5432"]
+    volumes: [pgdata:/var/lib/postgresql/data]
+    healthcheck: { test: ["CMD-SHELL", "pg_isready -U testforge"], interval: 5s, retries: 10 }
+volumes:
+  pgdata:
